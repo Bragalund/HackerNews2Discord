@@ -23,7 +23,7 @@ The script generates several `.beacon` files that become garbage after a few day
 find /path/to/beacons/ -type f -name '*.beacon' -mtime +7 -exec rm {} \;
 ```
 
-## How to test locally  
+## Run with cron in docker  
 
 Setup your .env-file locally.  
 
