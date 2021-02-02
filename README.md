@@ -25,7 +25,18 @@ find /path/to/beacons/ -type f -name '*.beacon' -mtime +7 -exec rm {} \;
 
 ## How to test locally  
 
+### With node installed  
+
 ```()
-node server.js
+node server.js &
 curl -X POST 127.0.0.1:3000/posthackernewstodiscordchannel 
 ```
+
+### With docker installed  
+
+```()  
+docker build -t your_username/posthackernewstodiscordchannel .
+docker run -p 3000:3000 -d your_username/posthackernewstodiscordchannel 
+curl -X POST 127.0.0.1:3000/posthackernewstodiscordchannel
+```  
+
