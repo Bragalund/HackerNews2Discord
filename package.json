@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/elamperti/HackerNews2Discord#readme",
   "dependencies": {
-    "dotenv": "^6.0.0"
+    "dotenv": "^6.0.0",
+    "express": "^4.17.1"
   }
 }

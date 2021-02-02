@@ -23,3 +23,9 @@ The script generates several `.beacon` files that become garbage after a few day
 find /path/to/beacons/ -type f -name '*.beacon' -mtime +7 -exec rm {} \;
 ```
 
+## How to test locally  
+
+```()
+node server.js
+curl -X POST 127.0.0.1:3000/posthackernewstodiscordchannel 
+```
