@@ -8,9 +8,10 @@ dotenv.config({path: path.resolve(__dirname, '.env')});
 
 const minScore = process.env.MIN_SCORE || 300;
 const beaconsPath = process.env.BEACONS_PATH || path.resolve(__dirname, 'beacons');
+const isDryRun = process.env.DRY_RUN === 'true';
 let remainingCalls = process.env.MAX_POSTS || 4; // May change if rate limit is lower
 
-if (!process.env.DISCORD_HOOK) {
+if (!isDryRun && !process.env.DISCORD_HOOK) {
     console.error('Discord hook missing');
     process.exit(1);
 }
@@ -25,6 +26,10 @@ function storyIsNew(id) {
 }
 
 function postToDiscord(story) {
+    if (isDryRun) {
+        console.log(`[Dry run] Skipping Discord post for "${story.title}" (${story.objectID})`);
+        return Promise.resolve();
+    }
     const hook = process.env.DISCORD_HOOK.replace(/.+\/webhooks\//, '');
     const opts = {
         hostname: 'discordapp.com',
@@ -71,6 +76,9 @@ function postToDiscord(story) {
 }
 
 function markStoryRead(id) {
+    if (isDryRun) {
+        return;
+    }
     // Touch beacon file with story id
     const beacon = `${beaconsPath}/${id}.beacon`;
     fs.writeFile(beacon, '', (err) => {if (err) throw err});
